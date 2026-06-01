@@ -6,6 +6,15 @@
 
 The blog of [Cloud Native Community Korea](https://github.com/cloud-native-community-korea), live at [cnck.tech](https://cnck.tech). Built with [Zola](https://www.getzola.org) 0.22 and the CNCK theme, a minimal monochrome design with a light/dark toggle.
 
+## Prerequisites
+
+Install [Zola](https://www.getzola.org/documentation/getting-started/installation/) 0.22.1. The version is pinned to match the [Zola](https://www.getzola.org) badge above and the CI build. On macOS, the easiest path is [Homebrew](https://brew.sh); other platforms are covered in the official install guide. Confirm the version before running the commands below.
+
+```bash
+brew install zola
+zola --version
+```
+
 ## Development
 
 ```bash
