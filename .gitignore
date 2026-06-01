@@ -1,0 +1,11 @@
+# Zola build output
+/public/
+
+# Generated syntax-highlight CSS (regenerated on every build)
+/static/giallo-*.css
+
+# Editor / OS noise
+.DS_Store
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__copy">
+      &copy; {{ now() | date(format='%Y') }} {{ config.extra.author | default(value=config.title) }}
+    </p>
+    {%- if config.extra.social %}
+    <p class="site-footer__links">
+      {%- for item in config.extra.social %}
+      <a href="{{ get_url(path=item.url) | safe }}"{% if item.url is starting_with("http") %} rel="me noopener" target="_blank"{% endif %}>{{ item.name }}</a>{% if not loop.last %} <span class="sep">/</span> {% endif %}
+      {%- endfor %}
+    </p>
+    {%- endif %}
+    <p class="site-footer__built">Built with <a href="https://www.getzola.org" rel="noopener" target="_blank">Zola</a>.</p>
+  </div>
+</footer>

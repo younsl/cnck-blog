@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="intro">
+  <h1 class="intro__title">{{ config.title }}</h1>
+  {%- if config.extra.tagline %}
+  <p class="intro__tagline">{{ config.extra.tagline }}</p>
+  {%- endif %}
+  {%- if section.content %}
+  <div class="intro__body">{{ section.content | safe }}</div>
+  {%- endif %}
+</section>
+
+{%- set blog = get_section(path="blog/_index.md") %}
+{%- set recent = blog.pages | slice(end=8) %}
+{%- if recent %}
+<section class="recent">
+  <h2 class="section-heading">Recent</h2>
+  {% set pages = recent %}
+  {% include "partials/post_list.html" %}
+  {%- if blog.pages | length > 8 %}
+  <p class="more"><a href="{{ get_url(path='/blog/') | safe }}">all posts &rarr;</a></p>
+  {%- endif %}
+</section>
+{%- endif %}
+{% endblock content %}

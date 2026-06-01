@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ get_url(path='/') | safe }}">{{ config.title }}</a>
+
+    <nav class="site-nav" aria-label="Primary">
+      {%- for item in config.extra.nav %}
+      <a href="{{ get_url(path=item.path) | safe }}"
+         {% if current_path and current_path is starting_with(item.path) %}aria-current="page"{% endif %}>{{ item.name }}</a>
+      {%- endfor %}
+
+      {%- if config.extra.theme_switcher %}
+      <button type="button" class="theme-toggle" id="theme-toggle"
+              aria-label="Toggle color theme" title="Toggle color theme">
+        <span class="theme-toggle__icon" aria-hidden="true">◐</span>
+      </button>
+      {%- endif %}
+    </nav>
+  </div>
+</header>

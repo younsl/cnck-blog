@@ -1,0 +1,53 @@
+# https://www.getzola.org/documentation/getting-started/configuration/
+base_url = "https://cnck.tech"
+title = "CNCK"
+description = "Cloud Native Community Korea — writing about cloud native infrastructure, Kubernetes, and the systems we run together."
+default_language = "en"
+
+theme = "cnck"
+
+# Build features
+compile_sass = true
+minify_html = true
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+build_search_index = true
+
+taxonomies = [
+  { name = "tags", feed = true, paginate_by = 10 },
+]
+
+[markdown]
+smart_punctuation = true
+render_emoji = false
+
+# Zola 0.22 switched the highlighter from Syntect to Giallo; all options now
+# live under [markdown.highlighting]. style = "class" emits CSS classes instead
+# of inline colors, and the two themes below auto-generate giallo-light.css and
+# giallo-dark.css so the palette can follow light/dark.
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
+
+[search]
+index_format = "elasticlunr_json"
+
+[extra]
+# Theme-level configuration consumed by templates.
+author = "Cloud Native Community Korea"
+author_url = "https://github.com/cloud-native-community-korea"
+# Lines shown under the site title on the home page.
+tagline = "Cloud Native Community Korea"
+# Primary navigation. `path` is relative to base_url.
+nav = [
+  { name = "blog", path = "/blog/" },
+  { name = "tags", path = "/tags/" },
+  { name = "about", path = "/about/" },
+]
+# Footer social links. Rendered as plain text links.
+social = [
+  { name = "rss", url = "/atom.xml" },
+]
+# Toggle the floating dark/light switch in the header.
+theme_switcher = true

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-header__title">{{ page.title }}</h1>
+    <div class="post-header__meta">
+      <time datetime="{{ page.date }}">{{ page.date | date(format='%Y-%m-%d') }}</time>
+      {%- if page.reading_time %}<span class="sep">·</span><span>{{ page.reading_time }} min read</span>{% endif %}
+      {%- if page.taxonomies.tags %}
+      <span class="sep">·</span>
+      <span class="post-header__tags">
+        {%- for tag in page.taxonomies.tags %}<a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">#{{ tag }}</a>{% endfor %}
+      </span>
+      {%- endif %}
+    </div>
+  </header>
+
+  {%- if page.toc and page.extra.toc %}
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc__title">Contents</p>
+    <ul>
+      {%- for h1 in page.toc %}
+      <li><a href="#{{ h1.id }}">{{ h1.title }}</a>
+        {%- if h1.children %}
+        <ul>{% for h2 in h1.children %}<li><a href="#{{ h2.id }}">{{ h2.title }}</a></li>{% endfor %}</ul>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </nav>
+  {%- endif %}
+
+  <div class="prose">
+    {{ page.content | safe }}
+  </div>
+
+  <footer class="post-footer">
+    <nav class="post-nav" aria-label="Post navigation">
+      {%- if page.lower %}<a class="post-nav__prev" href="{{ page.lower.permalink | safe }}">&larr; {{ page.lower.title }}</a>{% endif %}
+      {%- if page.higher %}<a class="post-nav__next" href="{{ page.higher.permalink | safe }}">{{ page.higher.title }} &rarr;</a>{% endif %}
+    </nav>
+    <p class="post-footer__back"><a href="{{ get_url(path='/blog/') | safe }}">&larr; all posts</a></p>
+  </footer>
+</article>
+{% endblock content %}

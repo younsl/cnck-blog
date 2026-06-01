@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {%- set site_title = config.title -%}
+  {%- if page.title -%}{%- set page_title = page.title ~ " · " ~ site_title -%}
+  {%- elif section.title -%}{%- set page_title = section.title ~ " · " ~ site_title -%}
+  {%- elif term.name -%}{%- set page_title = "#" ~ term.name ~ " · " ~ site_title -%}
+  {%- else -%}{%- set page_title = site_title -%}{%- endif -%}
+  <title>{% block title %}{{ page_title }}{% endblock title %}</title>
+
+  {%- set page_desc = config.description -%}
+  {%- if page.description -%}{%- set page_desc = page.description -%}
+  {%- elif section.description -%}{%- set page_desc = section.description -%}{%- endif -%}
+  <meta name="description" content="{{ page_desc }}">
+  {%- if config.extra.author %}
+  <meta name="author" content="{{ config.extra.author }}">
+  {%- endif %}
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ config.title }}">
+  <meta property="og:title" content="{% block og_title %}{{ page_title }}{% endblock og_title %}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:type" content="{% if page.title %}article{% else %}website{% endif %}">
+  {%- if current_url %}
+  <meta property="og:url" content="{{ current_url | safe }}">
+  {%- endif %}
+  <meta name="twitter:card" content="summary">
+
+  {%- if current_url %}
+  <link rel="canonical" href="{{ current_url | safe }}">
+  {%- endif %}
+
+  <!-- Set theme before paint to avoid a flash of the wrong palette. -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = stored || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ get_url(path='main.css', cachebust=true) | safe }}">
+  <link rel="stylesheet" href="{{ get_url(path='giallo-light.css') | safe }}" media="(prefers-color-scheme: light)" id="syntax-light">
+  <link rel="stylesheet" href="{{ get_url(path='giallo-dark.css') | safe }}" media="(prefers-color-scheme: dark)" id="syntax-dark">
+
+  {%- if config.generate_feeds %}
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='atom.xml', trailing_slash=false) | safe }}">
+  {%- endif %}
+
+  {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+  {% include "partials/header.html" %}
+
+  <main class="content" id="main">
+    {% block content %}{% endblock content %}
+  </main>
+
+  {% include "partials/footer.html" %}
+
+  {%- if config.extra.theme_switcher %}
+  <script src="{{ get_url(path='js/theme.js') | safe }}" defer></script>
+  {%- endif %}
+  {% block extra_body %}{% endblock extra_body %}
+</body>
+</html>

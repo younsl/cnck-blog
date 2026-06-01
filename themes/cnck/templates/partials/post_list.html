@@ -1,0 +1,14 @@
+{# Renders a list of pages as a compact, dated index. Expects `pages`. #}
+<ul class="post-list">
+  {%- for page in pages %}
+  <li class="post-list__item">
+    <time class="post-list__date" datetime="{{ page.date }}">{{ page.date | date(format='%Y-%m-%d') }}</time>
+    <a class="post-list__link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
+    {%- if page.taxonomies.tags %}
+    <span class="post-list__tags">
+      {%- for tag in page.taxonomies.tags %}<a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">#{{ tag }}</a>{% endfor %}
+    </span>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>

@@ -1,0 +1,22 @@
+# https://www.getzola.org/documentation/themes/creating-a-theme/
+name = "CNCK"
+description = "A minimal monochrome theme for Zola. Serif body, monospaced metadata, generous whitespace, and a light/dark toggle."
+license = "MIT"
+homepage = "https://github.com/cnck-blog/cnck-blog.github.io"
+# Minimum Zola version required by this theme.
+min_version = "0.19.0"
+authors = ["younsl <https://github.com/younsl>"]
+
+[extra]
+author = "CNCK"
+tagline = "Writing about infrastructure & systems."
+nav = [
+  { name = "blog", path = "/blog/" },
+  { name = "tags", path = "/tags/" },
+  { name = "about", path = "/about/" },
+]
+social = [
+  { name = "github", url = "https://github.com/cnck-blog" },
+  { name = "rss", url = "/atom.xml" },
+]
+theme_switcher = true

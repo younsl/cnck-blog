@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="taxonomy">
+  <header class="page-header">
+    <h1 class="page-header__title">#{{ term.name }}</h1>
+    <p class="page-header__desc">{{ term.pages | length }} post{% if term.pages | length != 1 %}s{% endif %}</p>
+  </header>
+
+  {%- if paginator %}{% set pages = paginator.pages %}{% else %}{% set pages = term.pages %}{% endif %}
+  {% include "partials/post_list.html" %}
+
+  {%- if paginator and paginator.number_pagers > 1 %}
+  <nav class="pagination" aria-label="Pagination">
+    {%- if paginator.previous %}<a href="{{ paginator.previous | safe }}">&larr; newer</a>{% endif %}
+    <span class="pagination__count">{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
+    {%- if paginator.next %}<a href="{{ paginator.next | safe }}">older &rarr;</a>{% endif %}
+  </nav>
+  {%- endif %}
+
+  <p class="more"><a href="{{ get_url(path='/tags/') | safe }}">&larr; all tags</a></p>
+</section>
+{% endblock content %}
